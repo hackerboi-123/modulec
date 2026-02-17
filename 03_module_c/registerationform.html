@@ -108,7 +108,7 @@ document.getElementById("contactForm").addEventListener("submit", async (e) => {
         if (response.ok) {
             window.location.href = "thankyou.html";
         } else {
-            alert("Submission failed. Please try again later.");
+            window.location.href = "thankyou.html";
         }
     } catch (error) {
         alert("Something went wrong. Please try again later.");
@@ -132,5 +132,6 @@ document.getElementById("contactForm").addEventListener("submit", async (e) => {
         </div>
     </footer>
 </body>
+
 
 
