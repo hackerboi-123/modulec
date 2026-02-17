@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EV Gujarat – Register EV</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Public+Sans:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Public Sans', sans-serif;
+            background-color: #f0fdf4;
+        }
+        h2{
+            font-family: 'Outfit', sans-serif;
+        }
+        .input {
+            border: grey solid 1px;
+            border-radius: 5px;
+            height: 30px;
+            width: 400px;
+            padding-left: 10px;
+        }
+
+        .textarea {
+            border: grey solid 1px;
+            border-radius: 5px;
+            height: 60px;
+            width: 400px;
+            padding-left: 10px;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+    </style>
+</head>
+
+<body class="text-slate-900">
+    <nav class="fixed top-0 w-full z-50 glass border-b border-green-100">
+        <div class="container mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="bg-green-600 p-2 rounded-xl shadow-lg shadow-green-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                </div>
+                <div>
+                    <span class="block text-xl font-bold tracking-tight">EV Gujarat</span>
+                    <span class="block text-[10px] uppercase tracking-[0.2em] font-semibold text-green-700">Drive the
+                        Future</span>
+                </div>
+            </div>
+            <div class="hidden md:flex items-center gap-8 font-medium text-slate-600">
+                <a href="index.html" class="hover:text-green-600 transition-colors">Home</a>
+                <a href="#incentives" class="hover:text-green-600 transition-colors">Subsidies</a>
+                <a href="#charging" class="hover:text-green-600 transition-colors">Charging</a>
+                <a href="#benefits" class="hover:text-green-600 transition-colors">Benefits</a>
+                <a href="registerationform.html"><button class="bg-green-600 text-white px-6 py-2.5 rounded-full font-bold shadow-xl shadow-green-200 hover:bg-green-700 transition-all active:scale-95">Register EV</button></a>
+            </div>
+        </div>
+    </nav>
+    <br><br><br><br>
+    <div class="container mx-auto px-6 text-center mb-20">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4">Register EV</h2>
+        <p class="text-slate-500 text-lg">Get a quote for your green and clean EV vehicle</p>
+    </div>
+    <div class="containter text-center">
+        <form id="contactForm">
+            <input class="input" type="text" name="name" placeholder="Your Name" required /><br><br>
+            <input class="input" type="text" name="number" placeholder="Your Number" minlength="10" maxlength="10"
+                required /><br><br>
+            <input class="input" type="email" name="email" placeholder="Your Email" required /><br><br>
+            <input class="input" type="text" name="city" placeholder="Your City" required /><br><br>
+            <textarea type="type" class="textarea" name="evtype" placeholder="You're intrested in which EV vehicle?"
+                rows="5" cols="15" required></textarea><br><br>
+            <textarea name="message" class="textarea" rows="5" cols="15" placeholder="Your Message"></textarea><br><br>
+            <button class="bg-green-600 text-white px-6 py-2.5 rounded-full font-bold hover:bg-green-700 transition-all active:scale-95" type="submit">Submit</button>
+        </form>
+    </div>
+    <script>
+document.getElementById("contactForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const formData = {
+        name: e.target.name.value,
+        number: e.target.number.value,
+        email: e.target.email.value,
+        city: e.target.city.value,
+        evtype: e.target.evtype.value,
+        message: e.target.message.value,
+    };
+
+    try {
+        const response = await fetch("/.netlify/functions/submitForm", {
+            method: "POST",
+            body: JSON.stringify(formData),
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+            window.location.href = "thankyou.html";
+        } else {
+            alert("Submission failed. Please try again later.");
+        }
+    } catch (error) {
+        alert("Something went wrong. Please try again later.");
+    }
+});
+</script>
+
+    <footer class="py-20 bg-white border-t border-slate-100">
+        <div class="container mx-auto px-6 text-center">
+            <p class="text-slate-400 text-sm mb-4 tracking-widest uppercase font-bold">Government of Gujarat</p>
+            <p class="text-slate-600 max-w-xl mx-auto mb-10">Building a sustainable future for 7.5 Crore citizens
+                through clean energy and smart mobility.</p>
+            <div class="flex justify-center gap-8 text-slate-400 font-medium">
+                <a href="#" class="hover:text-green-600">Policy Document</a>
+                <a href="#" class="hover:text-green-600">Dealer Login</a>
+                <a href="#" class="hover:text-green-600">Contact Help</a>
+            </div>
+            <div class="mt-16 pt-10 border-t border-slate-100 text-slate-300 text-xs">
+                © 2026 Department of Transport, Government of Gujarat. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+</body>
